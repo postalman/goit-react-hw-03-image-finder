@@ -3,7 +3,6 @@ import axios from 'axios';
 import SearchBar from 'components/Searchbar/Searchbar';
 import ImageGallery from 'components/ImageGallery/ImageGallery';
 import Button from 'components/Button/Button';
-import Modal from 'components/Modal/Modal';
 import Loader from 'components/Loader/Loader';
 import { StyledApp } from 'components/App.styled';
 
@@ -56,19 +55,17 @@ class App extends React.Component {
   };
 
   render() {
-    const { images, isLoading, error, showModal, selectedImageURL } =
-      this.state;
+    const { images, isLoading, error } = this.state;
 
     return (
       <StyledApp>
         <SearchBar onSubmit={this.handleSearchSubmit} />
         {error && <p className="error">{error}</p>}
-        <ImageGallery images={images}/>
+        <ImageGallery images={images} />
         {isLoading && <Loader />}
         {!isLoading && images.length > 0 && (
           <Button onClick={this.handleLoadMore}>Load more</Button>
         )}
-        
       </StyledApp>
     );
   }
