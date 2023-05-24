@@ -1,9 +1,9 @@
 import { StyledButton } from 'components/Button/Button.styled';
 import PropTypes from 'prop-types';
 
-const Button = ({ onClick, disabled }) => {
+const Button = ({ onClick }) => {
   return (
-      <StyledButton type="button" onClick={onClick} disabled={disabled}>
+      <StyledButton type="button" onClick={onClick}>
         Load more
       </StyledButton>
   );
