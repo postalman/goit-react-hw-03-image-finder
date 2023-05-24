@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 const Button = ({ onClick, disabled }) => {
   return (
-    <StyledButton type="button" onClick={onClick} disabled={disabled}>
-      Load more
-    </StyledButton>
+      <StyledButton type="button" onClick={onClick} disabled={disabled}>
+        Load more
+      </StyledButton>
   );
 };
 
