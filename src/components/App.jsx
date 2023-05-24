@@ -55,14 +55,6 @@ class App extends React.Component {
     this.fetchImages(query, page + 1);
   };
 
-  handleImageClick = imageURL => {
-    this.setState({ showModal: true, selectedImageURL: imageURL });
-  };
-
-  handleCloseModal = () => {
-    this.setState({ showModal: false, selectedImageURL: '' });
-  };
-
   render() {
     const { images, isLoading, error, showModal, selectedImageURL } =
       this.state;
@@ -71,18 +63,12 @@ class App extends React.Component {
       <StyledApp>
         <SearchBar onSubmit={this.handleSearchSubmit} />
         {error && <p className="error">{error}</p>}
-        <ImageGallery images={images} onImageClick={this.handleImageClick} />
+        <ImageGallery images={images}/>
         {isLoading && <Loader />}
         {!isLoading && images.length > 0 && (
           <Button onClick={this.handleLoadMore}>Load more</Button>
         )}
-        {showModal && (
-          <Modal
-            isOpen={showModal}
-            largeImageURL={selectedImageURL}
-            onClose={this.handleCloseModal}
-          />
-        )}
+        
       </StyledApp>
     );
   }
