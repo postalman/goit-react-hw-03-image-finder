@@ -1,6 +1,6 @@
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
-import { StyledImageGallery } from 'components/ImageGallery/ImageGallery.styled'
-
+import { StyledImageGallery } from 'components/ImageGallery/ImageGallery.styled';
+import PropTypes from 'prop-types';
 
 const ImageGallery = ({ images }) => {
   return (
@@ -14,3 +14,10 @@ const ImageGallery = ({ images }) => {
 
 export default ImageGallery;
 
+ImageGallery.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+};

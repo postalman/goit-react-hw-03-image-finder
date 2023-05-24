@@ -1,15 +1,10 @@
-import { StyledImageGalleryItem, StyledImageGalleryItemImage } from 'components/ImageGalleryItem/ImageGalleryItem.styled'
+import {
+  StyledImageGalleryItem,
+  StyledImageGalleryItemImage,
+} from 'components/ImageGalleryItem/ImageGalleryItem.styled';
 import React from 'react';
 import Modal from 'components/Modal/Modal';
-// const ImageGalleryItem = ({ image }) => {
-//     return (
-//       <StyledImageGalleryItem>
-//         <StyledImageGalleryItemImage src={image.webformatURL} alt="" />
-//       </StyledImageGalleryItem>
-//     );
-//   };
-  
-//   export default ImageGalleryItem;
+import PropTypes from 'prop-types';
 
 class ImageGalleryItem extends React.Component {
   state = {
@@ -34,7 +29,11 @@ class ImageGalleryItem extends React.Component {
           <StyledImageGalleryItemImage src={image.webformatURL} alt="" />
         </StyledImageGalleryItem>
         {showModal && (
-          <Modal isOpen={showModal} largeImageURL={image.largeImageURL} onClose={this.handleCloseModal} />
+          <Modal
+            isOpen={showModal}
+            largeImageURL={image.largeImageURL}
+            onClose={this.handleCloseModal}
+          />
         )}
       </React.Fragment>
     );
@@ -42,3 +41,10 @@ class ImageGalleryItem extends React.Component {
 }
 
 export default ImageGalleryItem;
+
+ImageGalleryItem.propTypes = {
+  image: PropTypes.shape({
+    webformatURL: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+  }).isRequired,
+};

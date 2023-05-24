@@ -64,7 +64,8 @@ class App extends React.Component {
   };
 
   render() {
-    const { images, isLoading, error, showModal, selectedImageURL } = this.state;
+    const { images, isLoading, error, showModal, selectedImageURL } =
+      this.state;
 
     return (
       <StyledApp>

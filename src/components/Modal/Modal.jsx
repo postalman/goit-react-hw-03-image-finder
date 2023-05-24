@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { StyledOverlay, StyledModal } from 'components/Modal/Modal.styled';
 
 class Modal extends React.Component {
@@ -39,3 +39,9 @@ class Modal extends React.Component {
 }
 
 export default Modal;
+
+Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+};

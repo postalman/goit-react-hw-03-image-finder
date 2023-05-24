@@ -1,4 +1,5 @@
 import { StyledButton } from 'components/Button/Button.styled';
+import PropTypes from 'prop-types';
 
 const Button = ({ onClick, disabled }) => {
   return (
@@ -9,3 +10,8 @@ const Button = ({ onClick, disabled }) => {
 };
 
 export default Button;
+
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+};
