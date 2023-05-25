@@ -55,13 +55,15 @@ class App extends React.Component {
   };
 
   handleLoadMore = () => {
-    const { hasMoreImages, isLoading, page } = this.state;
-
-    if (!hasMoreImages || isLoading) {
-      return;
-    }
-
-    this.setState({ page: page + 1 });
+    this.setState(prevState => {
+      const { hasMoreImages, isLoading, page } = prevState;
+  
+      if (hasMoreImages && !isLoading) {
+        return { page: page + 1 };
+      } else {
+        return prevState;
+      }
+    });
   };
 
   render() {
