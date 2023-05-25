@@ -11,11 +11,19 @@ class App extends React.Component {
     images: [],
     isLoading: false,
     error: null,
-    showModal: false,
-    selectedImageURL: '',
     page: 1,
     query: '',
+    hasMoreImages: true,
   };
+
+  componentDidUpdate(_, prevState) {
+    const { query: prevQuery, page: prevPage } = prevState;
+    const { query, page } = this.state;
+
+    if (prevQuery !== query || prevPage !== page) {
+      this.fetchImages(query, page);
+    }
+  }
 
   fetchImages = (query, page = 1) => {
     const API_KEY = '36044899-e18e2ff497f22a2f7cea9b850';
@@ -29,41 +37,45 @@ class App extends React.Component {
         `${BASE_URL}?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=${perPage}`
       )
       .then(response => {
+        const { hits } = response.data;
         this.setState(prevState => ({
-          images: [...prevState.images, ...response.data.hits],
+          images: page === 1 ? hits : [...prevState.images, ...hits],
           page: page,
+          hasMoreImages: hits.length === perPage,
+          isLoading: false,
         }));
       })
       .catch(error => {
-        this.setState({ error: error.message });
-      })
-      .finally(() => {
-        this.setState({ isLoading: false });
+        this.setState({ error: error.message, isLoading: false });
       });
   };
 
   handleSearchSubmit = query => {
-    this.setState({ images: [], error: null, page: 1, query: query }, () => {
-      this.fetchImages(query);
-    });
+    this.setState({ images: [], error: null, page: 1, query: query, hasMoreImages: true });
   };
 
   handleLoadMore = () => {
-    const { query, page } = this.state;
+    const { hasMoreImages, isLoading, page } = this.state;
 
-    this.fetchImages(query, page + 1);
+    if (!hasMoreImages || isLoading) {
+      return;
+    }
+
+    this.setState({ page: page + 1 });
   };
 
   render() {
-    const { images, isLoading, error } = this.state;
+    const { images, isLoading, error, hasMoreImages } = this.state;
 
     return (
       <StyledApp>
         <SearchBar onSubmit={this.handleSearchSubmit} />
         {error && <p className="error">{error}</p>}
-        <ImageGallery images={images} />
+        {images && (
+          <ImageGallery images={images} />
+        )}
         {isLoading && <Loader />}
-        {!isLoading && images.length > 0 && (
+        {!isLoading && images.length > 0 && hasMoreImages && (
           <Button onClick={this.handleLoadMore}>Load more</Button>
         )}
       </StyledApp>

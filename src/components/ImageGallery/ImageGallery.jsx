@@ -6,7 +6,7 @@ const ImageGallery = ({ images }) => {
   return (
     <StyledImageGallery>
       {images.map(image => (
-        <ImageGalleryItem key={image.id} image={image} />
+        <ImageGalleryItem key={image.webformatURL} image={image} />
       ))}
     </StyledImageGallery>
   );
